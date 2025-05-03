@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const CardItem = ({ title, platform, onClick }) => {
+const CardItem = ({ title, platform, onClick, sx={} }) => {
   const navigate = useNavigate();
 
   return (
@@ -17,6 +17,7 @@ const CardItem = ({ title, platform, onClick }) => {
           transform: 'scale(1.03)',
           backgroundColor: 'action.hover',
         },
+        ...sx
       }}
     >
       <CardContent>
