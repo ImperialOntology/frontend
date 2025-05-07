@@ -15,6 +15,10 @@ import {
 import { RichTreeView } from "@mui/x-tree-view/RichTreeView";
 import CustomTreeItem from "../components/CustomTreeItem";
 import { MinusSquare, PlusSquare, CloseSquare } from "../components/Icons";
+import ReactFlow, { Background, Controls } from 'reactflow';
+import { BaseEdge, getBezierPath } from 'reactflow';
+import 'reactflow/dist/style.css';
+import dagre from "dagre";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -127,6 +131,108 @@ function ReviewAggregation() {
   };  
 
   // Build Tree
+  // Helper function for the tree layout 
+  function getLayoutedElements(nodes, edges, direction = 'TB') {
+    const dagreGraph = new dagre.graphlib.Graph();
+    dagreGraph.setDefaultEdgeLabel(() => ({}));
+
+    const nodeWidth = 180;
+    const nodeHeight = 50;
+
+    const isHorizontal = direction === 'LR';
+    dagreGraph.setGraph({ rankdir: direction });
+
+    nodes.forEach((node) => {
+      dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+    });
+
+    edges.forEach((edge) => {
+      dagreGraph.setEdge(edge.source, edge.target);
+    });
+
+    dagre.layout(dagreGraph);
+
+    nodes.forEach((node) => {
+      const nodeWithPosition = dagreGraph.node(node.id);
+      node.position = {
+        x: nodeWithPosition.x - nodeWidth / 2,
+        y: nodeWithPosition.y - nodeHeight / 2,
+      };
+    });
+
+    return { nodes, edges };
+  }
+
+  // create the tree flow 
+  const createReactFlowTree = (nodeName, nodeData, parent = null, depth = 0, nodes = [], edges = [], visited = new Set()) => {
+    if (visited.has(nodeName)) return;
+    visited.add(nodeName);
+
+    const argument = ontologyTree?.arguments?.find(arg => arg.aspect === nodeName);
+    const strength = argument?.strength;
+    const polarity = argument?.polarity;
+    const label = `${polarity === false ? '❌' : '✅'}${strength ? ` ${strength.toFixed(4)}` : ''} ${nodeName}`;
+
+    const id = `${nodeName}_${depth}`;
+    nodes.push({ id, data: { label }, position: { x: 0, y: 0 } });
+
+    if (parent) {
+      edges.push({
+        id: `${parent}->${id}`,
+        source: parent,
+        target: id,
+        data: { color: polarity === false ? 'red' : 'green' },
+        type: 'floating-dash', 
+      });
+    }
+
+    if (nodeData && typeof nodeData === 'object') {
+      for (const [childName, childData] of Object.entries(nodeData)) {
+        createReactFlowTree(childName, childData, id, depth + 1, nodes, edges, visited);
+      }
+    }
+
+    return getLayoutedElements(nodes, edges);
+  };
+  function FloatingDashEdge({ id, sourceX, sourceY, targetX, targetY, data }) {
+    const [edgePath] = getBezierPath({
+      sourceX,
+      sourceY,
+      targetX,
+      targetY,
+    });
+  
+    const strokeColor = data?.color || '#999';
+  
+    return (
+      <>
+        <BaseEdge
+          id={id}
+          path={edgePath}
+          style={{
+            stroke: strokeColor,
+            strokeWidth: 2,
+            strokeDasharray: '6 6',
+            animation: 'dash-animation 1s linear infinite',
+          }}
+        />
+        <style>
+                    {`
+            @keyframes dash-animation {
+                from {
+                  stroke-dashoffset: -12;
+                }
+                to {
+                  stroke-dashoffset: 0;
+                }
+            }
+          `}
+        </style>
+      </>
+    );
+  }
+  
+
   const renderTree = (nodeName, nodeData) => {
     const argument = ontologyTree?.arguments?.find(arg => arg.aspect === nodeName);
     const strength = argument?.strength;
@@ -242,7 +348,7 @@ function ReviewAggregation() {
 
       <Grid container spacing={4}>
         {/* Left: Ontology Tree */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={12}>
           <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
             Ontology Tree
           </Typography>
@@ -263,6 +369,37 @@ function ReviewAggregation() {
                     }}
                     items={[renderTree(rootKey, ontologyTree.tree[rootKey])]}
                   />
+                );
+              })()
+            ) : (
+              <Typography variant="body2" color="text.secondary">
+                Please select a product to view its ontology tree.
+              </Typography>
+            )}
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} md={12}>
+          <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
+            Ontology Tree
+          </Typography>
+          <Box sx={{ padding: 2 }}>
+            {loading ? (
+              <CircularProgress />
+            ) : ontologyTree ? (
+              (() => {
+                const rootKey = Object.keys(ontologyTree.tree)[0];
+                const { nodes, edges } = createReactFlowTree(rootKey, ontologyTree.tree[rootKey]);
+                const edgeTypes = {
+                  'floating-dash': FloatingDashEdge,
+                };
+                return (
+                  <div style={{ width: '100%', height: '600px' }}>
+                    <ReactFlow nodes={nodes} edges={edges} edgeTypes={edgeTypes} fitView>
+                      <Background />
+                      <Controls />
+                    </ReactFlow>
+                  </div>
                 );
               })()
             ) : (

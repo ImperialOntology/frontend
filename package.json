@@ -11,10 +11,12 @@
     "@mui/material": "^6.4.4",
     "@mui/x-tree-view": "^7.26.0",
     "cra-template": "1.2.0",
+    "dagre": "^0.8.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",
     "react-scripts": "^5.0.1",
+    "reactflow": "^11.11.4",
     "web-vitals": "^4.2.4"
   },
   "scripts": {
