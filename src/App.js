@@ -4,6 +4,7 @@ import { AppBar, Toolbar, Typography, IconButton, Button, CssBaseline } from "@m
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import Home from "././pages/Home"
 import Exploration from "././pages/Exploration"
+import WorkFlowPage from "./pages/WorkFlow";
 import AnalysisPage from "./pages/Analysis";
 import ReviewAggregation from "./pages/ReviewAggregation";
 import { ThemeProvider } from "@mui/material/styles";
@@ -112,6 +113,7 @@ function App() {
           <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/workflow" element={<WorkFlowPage />} />
               <Route path="/analysis/:dataSourceId" element={<AnalysisPage />} />
               <Route path="/exploration" element={<Exploration />} />
               <Route path="/review-aggregation" element={<ReviewAggregation />} />
