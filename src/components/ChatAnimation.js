@@ -31,8 +31,14 @@ const ChatMessage = ({ sender, text }) => {
       >
         {!isUser && (
           <Box textAlign="center">
-            <Avatar sx={{ bgcolor: '#ff3b00' }}>A</Avatar>
-            <Typography variant="caption">ADA</Typography>
+            <Avatar sx={{ bgcolor: 'transparent' }}>
+            <img 
+              src={require('./Images/ADA.png')}
+              alt="ADA" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover', marginTop: '30px'}}
+            />
+            </Avatar>
+            <Typography variant="caption" sx = {{mt :-0.5}}>ADA</Typography>
           </Box>
         )}
         <Box
@@ -47,7 +53,13 @@ const ChatMessage = ({ sender, text }) => {
         </Box>
         {isUser && (
           <Box textAlign="center">
-            <Avatar sx={{ bgcolor: '#1976d2' }}>U</Avatar>
+            <Avatar sx={{ bgcolor: 'transparent' }}>
+              <img
+                src = {require('./Images/user.png')}
+                alt="User"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', marginTop: '30px'}}
+              />
+              </Avatar>
             <Typography variant="caption">User</Typography>
           </Box>
         )}
