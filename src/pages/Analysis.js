@@ -86,7 +86,7 @@ function AnalysisPage() {
       </Typography>
 
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-        Please select a category and the argumentative analysis method to view the summary statistics.
+        Please select a category and the argumentative analysis method to view the summary statistics. It may take up to a minute to show.
       </Typography>
 
       <Grid container spacing={4} sx={{ mb: 6 }}>
