@@ -4,7 +4,7 @@ import ChatAnimation from '../components/ChatAnimation';
 
 function Home() {
   return (
-    <Container sx={{ mt: 12 }}>
+    <Container sx={{ mt: 8 }}>
       {/* Centered Title */}
       <Box sx={{ textAlign: 'center', mb: 8 }}>
         <Typography variant="h1" component="h1" sx={{
@@ -22,11 +22,18 @@ function Home() {
         {/* Left Column - Description */}
         <Grid item xs={12} md={5}>
           <Typography variant="h5" align="left" sx={{ lineHeight: 1.6 }}>
-            ADA-X is an AI-powered software with the mission of providing structured, transparent explanations
-            on customer reviews. It extracts meaningful insights using natural language processing, helping 
-            businesses better understand customer sentiment and improve decision-making.
+          ADA-X is a Large Language Model-powered software that provides structured, transparent explanations of 
+          customer reviews.
             <br /><br />
-            Some more descriptions
+            The system mainly addresses two problems found in traditional review aggregation systems:
+            <ul>
+              <li> <strong>Over-simplification:</strong> A single score is not comprehensive enough for customers to understand 
+                the pros and cons of a product.
+              </li>
+              <li><strong>Biased results:</strong> Traditional review aggregation systems often use machine learning algorithms,
+                which may be contaminated by biased data.
+              </li>
+            </ul>
           </Typography>
         </Grid>
 
