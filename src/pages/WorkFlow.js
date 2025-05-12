@@ -10,27 +10,27 @@ const WorkFlowPage = () => {
     {
       id: 1,
       label: "1. Entites Extraction",
-      content: "BERT uses a transformer architecture with bidirectional encoding to understand context from both directions in text."
+      content: "In the entity extraction phase, all words are tokenized, frequently co-occurring tokens are merged into single candidate terms. A part-of-speech tagger is then used to identify the most frequently occurring entities among these candidates."
     },
     {
       id: 2,
       label: "2. Aspect Extraction",
-      content: "BERT is pre-trained on a large corpus of text using masked language modeling and next sentence prediction tasks."
+      content: "In this step, a BERT-model pre-trained on the manually annotated dataset is employed. Sentences with exactly one entity are passed into the model, which then classifies the entity as a product aspect, a feature aspect, or neither."
     },
     {
       id: 3,
       label: "3. Synonym Extraction",
-      content: "After pre-training, BERT can be fine-tuned on specific tasks like ontology extraction with relatively small amounts of labeled data."
+      content: "This stage involves applying the Equidistant Nodes Clustering (ENC) algorithm to cluster similar aspects. In this algorithm, a domain-specific Word2Vec model is trained to compute the similarity between aspects, and those with a similarity score above a certain threshold are clustered together as synonyms"
     },
     {
       id: 4,
       label: "4. Relation Extraction",
-      content: "BERT generates contextual embeddings where the same word can have different representations based on its surrounding context."
+      content: "In this stage, a BERT classifier trained on the relation extraction dataset is applied. Sentences containing two synsets are passed into the model, which determines the type of relationship between aspects"
     },
     {
       id: 5,
       label: "5. Ontology Extraction",
-      content: "BERT can be used for ontology extraction by identifying concepts, relationships, and hierarchical structures in text data."
+      content: "The ontology is eventyally constructed based on the relationship matrix."
     }
   ];
 
@@ -38,27 +38,45 @@ const WorkFlowPage = () => {
     {
       id: 6,
       label: "1. Aspect Extraction",
-      content: "BERT uses a transformer architecture with bidirectional encoding to understand context from both directions in text."
+      content: "In the first stage a prompt is provided to the LLM, prompting it to generate aspects along with their sentiment polarity."
     },
     {
       id: 7,
       label: "2. Synonym Extraction",
-      content: "BERT is pre-trained on a large corpus of text using masked language modeling and next sentence prediction tasks."
+      content: "Similar to the BERT-based model, the ENC method is employed to cluster aspects into synsets. "
     },
     {
       id: 8,
       label: "3. Concept Extraction",
-      content: "After pre-training, BERT can be fine-tuned on specific tasks like ontology extraction with relatively small amounts of labeled data."
+      content: "The most commonly occurring term within each group is selected as its representative These representative terms are then passed to the LLM to determine whether each term should be considered a concept for its specific domain."
     },
     {
       id: 9,
       label: "4. Relation Extraction",
-      content: "BERT generates contextual embeddings where the same word can have different representations based on its surrounding context."
+      content: "Sentences containing exactly two aspects from different synset groups are selected. These sentences, along with their corresponding aspects, are provided to the LLM. The model’s task is to determine whether a part-whole relationship exists between the two aspects based on the surrounding context.."
     },
     {
       id:0,
       label: "5. Ontology Extraction",
-      content: "BERT can be used for ontology extraction by identifying concepts, relationships, and hierarchical structures in text data."
+      content: "The ontology is eventyally constructed based on the relationship matrix."
+    }
+  ];
+
+  const Reveiw_button = [
+    {
+      id: 11,
+      label: "1. Sentiment Analysis",
+      content: "SA is performed using a BERT model trained on the SemEval2014 Task 4 dataset. Each sentence containing an aspect is passed through the model, which outputs the sentiment associated with that aspect."
+    },
+    {
+      id: 12,
+      label: "2. QBAF base score",
+      content: "Based on the number of positive and negatives votes, reviews will be aggregated together and a base score will be provided for each asepect.  "
+    },
+    {
+      id: 13,
+      label: "3. Argument Strength",
+      content: "Finally, the argument strength will be calculated based on the base score of itself and its constructed features."
     }
   ];
 
@@ -106,12 +124,12 @@ const WorkFlowPage = () => {
           1. Gather Customer reivews
         </Typography>
         <Typography variant="h5" align="left" sx={{ lineHeight: 1.6 }}>
-          Having a good amount of customer reivew is crucial for the following ontology construction
-          and review aggregation stage. This provide a good insight to Large Language Model(LLM) about the 
-          domain specific knowledge and ensure a good quality ontology that could have a good representation
-          of the product. 
-          <br /><br />
-          In our demonstration, we are using dataset from the following websites:
+        Similar to any review aggregation method, customer reviews are the most crucial component of the ADA-X system.
+        Having a large number of customer reviews helps the language model used in ADA better understand different 
+        aspects of a product, generate a high-quality ontology, and provide structured explanations of customer reviews.
+
+        <br /><br />
+        In our demonstration, we use datasets from the following websites:
           <div className="p-4">
             <div style={{ 
               marginTop: '10px',
@@ -201,15 +219,15 @@ const WorkFlowPage = () => {
         </Typography>
 
         <Typography variant="h5" align="left" sx={{ lineHeight: 1.6 }}>
-        By definition, ontology means conceptualization that define entities and their relationships 
-        within a particular domain of knowledge. To help LLM to better understading this concept and 
-        perform ontology extraction task, different method are applied to different Language Models.
-        We deployed two different methdos in the ADA-X system, the BERT-Based method and LLM-based method. 
-        <br /><br />
+        By definition, an ontology is a conceptualization that defines entities and their relationships within 
+        a particular domain of knowledge. The purpose of constructing an ontology is to break down the product 
+        into different aspects and analyze each aspect in a later stage. This process is often time-consuming and 
+        requires professional, domain-specific knowledge. Therefore, we embedded two automatic ontology extraction 
+        methods in the ADA-X system.
 
-        We are first introducing the BERT-based ontology extraction method. This method required two 
-        mannual annotated dataset to train two separate BERT model on asepct extraction and relation 
-        extraction tasks. 
+        <br /><br />
+        The first method is a BERT-based ontology extraction technique. This method requires two manually annotated 
+        datasets to train two separate BERT models to perform aspect extraction and relation extraction tasks.
         </Typography>
         <Box 
           sx={{ 
@@ -299,9 +317,9 @@ const WorkFlowPage = () => {
       </Typography>
     </Box>
       <Typography variant="h5" align="left" sx={{ lineHeight: 1.6 }}>
-        The graph below shows how the LLM-based ontology extraction method works. The Language model we 
-        used in this taks is mainly Mistral 7B. We have prompted the language model to perform aspect extraction, concept extraction
-        and relation extraction tasks. The synonym extraction is performed using Equal distance clustering(ENC) algorithm. 
+      Although the BERT-based method automates the majority of the ontology extraction process, it still requires manual data annotation. 
+      To improve upon this, an LLM-based ontology extraction method has recently emerged. The Mistral-7B model has been used in this approach, 
+      converting ontology extraction into a fully automated process.
       </Typography>
       <Box 
           sx={{ 
@@ -317,7 +335,7 @@ const WorkFlowPage = () => {
         <Box sx={{ position: 'relative', width: '100%' }}>
           <img 
             src={require("../components/Images/LLM-Ontolgoy.png")}
-            alt="BERT-based Ontology Extraction" 
+            alt="LLM-based Ontology Extraction" 
             style={{ 
               width: '80%',
               height: '100%',
@@ -391,6 +409,104 @@ const WorkFlowPage = () => {
     </Box>
 
       </Container>
+      <Typography variant="h4" gutterBottom sx={{ mb: 5 }}>
+          3. Review Aggregation
+      </Typography>
+
+      <Typography variant="h5" align="left" sx={{ lineHeight: 1.6 }}>
+      Based on the results obtained from the ontology extraction stage, the ADA framework then utilizes 
+      the ontology tree and customer reviews to generate dialectical strength and dialogical explanations. 
+      This process is divided into two stages: mining votes using Sentiment Analysis (SA), and formulating 
+      the Quantitative Bipolar Argumentation Framework (QBAF).
+        </Typography>
+      
+      <Box 
+          sx={{ 
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            maxWidth: '1000px',
+            margin: '0 auto',
+            mb: 4,
+            position: 'relative'
+          }}
+        >
+        
+        <Box sx={{ position: 'relative', width: '100%' }}>
+          <img 
+            src={require("../components/Images/Review_aggregation.png")}
+            alt="Review Aggregation" 
+            style={{ 
+              width: '80%',
+              height: '100%',
+              objectFit: 'contain'
+            }}
+          />
+          {/* Review Aggregation container - positioned absolutely on the right side */}
+          <Box
+            sx={{
+              position: 'absolute',
+              right: '16px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '12px'
+            }}
+          >
+            {Reveiw_button.map(button => (
+              <Button
+                key={button.id}
+                variant={activePopup === button.id ? "contained" : "outlined"}
+                color="primary"
+                size="small"
+                onClick={() => togglePopup(button.id, "Review")}
+                sx={{ minWidth: '120px' }}
+              >
+                {button.label}
+              </Button>
+            ))}
+          </Box>
+            
+          {/* Popup container - only visible when a button is clicked */}
+          {activePopup.source === "Review" && (
+            <Box
+              sx={{
+                position: 'absolute',
+                right: '150px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                bgcolor: 'rgba(255, 255, 255, 0.9)',
+                p: 2,
+                borderRadius: 1,
+                boxShadow: 3,
+                maxWidth: '250px',
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  right: '-10px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: 0,
+                  height: 0,
+                  borderTop: '10px solid transparent',
+                  borderLeft: '10px solid rgba(255, 255, 255, 0.9)',
+                  borderBottom: '10px solid transparent'
+                }
+              }}
+              onClick={() => togglePopup(activePopup)}
+            >
+              <Typography variant="body2" color="text.primary">
+                {Reveiw_button.find(button => button.id === activePopup.id)?.content}
+              </Typography>
+            </Box>
+          )}
+        </Box>
+      
+      <Typography variant="caption" color="text.secondary" sx={{ fontStyle: 'italic', mt: 1 }}>
+        Review Aggregation
+      </Typography>
+    </Box>
     </Box>
   );
 };
