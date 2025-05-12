@@ -41,11 +41,14 @@ function Exploration() {
     <Container sx={{ marginTop: 6, maxWidth: '100%' }}>
       <Box textAlign="center" mb={4}>
         <Typography variant="h3" gutterBottom sx={{ mb: 5 }}>
-          Ontology Extraction via Large Language Models for Review Aggregation
+          Discover the ADA-X
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-          Welcome to our website! 
-          Begin by selecting the data source you would like to inspect below.
+          Explore how ADA-X transforms raw customer reviews into clear, structured insights. 
+          <br /><br />
+          Choose a dataset from the following options. 
+          <br /><br />
+          The first component is the review source, followed by the number of review for each category. 
         </Typography>
       </Box>
 
@@ -64,11 +67,16 @@ function Exploration() {
           dataSources.map((source) => (
             <Grid item key={source.id}>
               <CardItem 
-                title={source.name}
+                title={source.name.toLowerCase() === "disneyland"? "Disneyland 20k" : source.name} 
                 platform={source.name}
-                sx={{ backgroundColor: "#EDEDED" }}
+                sx={{ backgroundColor: "#EDEDED",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+
+                 }}
                 onClick={() => handleCardClick(source.id, source.name)}>
-                <Typography variant="h6">{source.name}</Typography> 
+                <Typography variant="h6" align="center">{source.name}</Typography> 
               </CardItem>
             </Grid>
           ))

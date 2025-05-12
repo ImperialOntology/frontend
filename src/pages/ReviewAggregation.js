@@ -11,6 +11,8 @@ import {
   FormControlLabel,
   Switch,
   Button,
+  IconButton, 
+  Tooltip
 } from "@mui/material";
 import { RichTreeView } from "@mui/x-tree-view/RichTreeView";
 import CustomTreeItem from "../components/CustomTreeItem";
@@ -19,6 +21,7 @@ import ReactFlow, { Background, Controls } from 'reactflow';
 import { BaseEdge, getBezierPath } from 'reactflow';
 import 'reactflow/dist/style.css';
 import dagre from "dagre";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -321,9 +324,16 @@ function ReviewAggregation() {
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <Box sx={{ p: 2, border: "1px solid #ddd", borderRadius: 2 }}>
-              <Typography variant="body2" color="text.secondary">
-                Actual Average Rating
-              </Typography>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Typography variant="body2" color="text.secondary">
+                  Actual Average Rating
+                </Typography>
+                <Tooltip title="The actual rating collected from data source website.">
+                  <IconButton size="small" sx={{ ml: 1 }}>
+                    <InfoOutlinedIcon fontSize="small" />
+                  </IconButton>
+                </Tooltip>
+              </Box>
               <Typography variant="h6">
                 {ontologyTree?.actual_avg_product_rating !== undefined
                   ? ontologyTree.actual_avg_product_rating.toFixed(4)
@@ -333,9 +343,16 @@ function ReviewAggregation() {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Box sx={{ p: 2, border: "1px solid #ddd", borderRadius: 2 }}>
-              <Typography variant="body2" color="text.secondary">
-                Ontology Product Score
-              </Typography>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Typography variant="body2" color="text.secondary">
+                  Ontology Product Score
+                </Typography>
+                <Tooltip title="The argument strength for the root of the ontology tree (The product). The closer this number is to the actual rating, the better.">
+                  <IconButton size="small" sx={{ ml: 1 }}>
+                    <InfoOutlinedIcon fontSize="small" />
+                  </IconButton>
+                </Tooltip>
+              </Box>
               <Typography variant="h6">
                 {ontologyTree?.ontology_product_score !== undefined
                   ? ontologyTree.ontology_product_score.toFixed(4)
@@ -383,6 +400,10 @@ function ReviewAggregation() {
           <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
             Ontology Tree
           </Typography>
+          <Typography variant="body2" color="text.secondary">
+                The number shown at the front of each aspect is the argument strength.
+                The edge between aspect are the support & against relationship between asepcts. 
+          </Typography>
           <Box sx={{ padding: 2 }}>
             {loading ? (
               <CircularProgress />
@@ -414,6 +435,9 @@ function ReviewAggregation() {
         <Grid item xs={12} md={6}>
           <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
             Investigate Reviews
+          </Typography>
+          <Typography variant="body2" color="text.secondary" gutterBottom sx={{ mb: 3 }}>
+                This section shows some previous generated reply from LLMs
           </Typography>
 
           <Box sx={{ mb: 2 }}>
