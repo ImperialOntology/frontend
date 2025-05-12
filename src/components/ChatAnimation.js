@@ -4,14 +4,14 @@ import { motion } from 'framer-motion';
 
 // Fixed messages array to match what's shown in the image
 const messages = [
-  { sender: 'user', text: 'Why was the game poorly rated?' },
+  { sender: 'user', text: 'Why was ADA-x highly rated?' },
 // due to some bugs on motion, this sentence wil not display
   {sender:"user", text:"Nothing"},
-  { sender: 'bot', text: 'Because the gameplay was bad.' },
-  { sender: 'user', text: 'What did the users say about gameplay?' },
-  { sender: 'bot', text: '"...The gameplay was horrible..."' },
-  { sender: 'user', text: 'Was this a common complaint among users?' },
-  { sender: 'bot', text: 'Yes, many reviews mentioned poor gameplay quality.' },
+  { sender: 'bot', text: 'Because ADA-x gives users clear, feature-level explanations.' },
+  { sender: 'user', text: 'Could you explain more about this properties' },
+  { sender: 'bot', text: 'Sure, ADA-x utilized the concept of ontolgy, separate products into features and provide explantion based on the stregnth of featrue' },
+  { sender: 'user', text: 'What did the user say about ADA-x' },
+  { sender: 'bot', text: '"Using ADA-x is a game-chaning experience, It helped me to select prodcut based on my own preference!"' },
 ];
 
 const ChatMessage = ({ sender, text }) => {
