@@ -4,33 +4,52 @@ import { useNavigate } from "react-router-dom";
 import CardItem from "../components/CardItem";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
+const API_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
 
 function Exploration() {
   const [dataSources, setDataSources] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/main/data_sources", {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+    
+    fetch(`${API_URL}/main/data_sources`, {
       method: "GET",
       headers: {
         "X-API-Key": API_KEY,
         "Accept": "application/json"
-      }
+      },
+      signal: controller.signal
     })    
       .then(response => {
         console.log("API Response Status:", response.status);
+        if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}`);
+        }
         return response.json();
       })
       .then(data => {
         console.log("Fetched Data Sources:", data);
         setDataSources(data);
         setLoading(false);
+        setError(null);
       })
       .catch(error => {
         console.error("Error fetching data sources:", error);
         setLoading(false);
+        setError(error.message || "Failed to connect to backend server");
+      })
+      .finally(() => {
+        clearTimeout(timeoutId);
       });
+      
+    return () => {
+      clearTimeout(timeoutId);
+      controller.abort();
+    };
   }, []);  
 
   const handleCardClick = (id, name) => {
@@ -59,6 +78,15 @@ function Exploration() {
           <CircularProgress />
           <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
             Loading data sources...
+          </Typography>
+        </Box>
+      ) : error ? (
+        <Box textAlign="center">
+          <Typography variant="h6" color="error" sx={{ mt: 2 }}>
+            {error}
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
+            Please ensure the backend server is running at {API_URL}
           </Typography>
         </Box>
       ) : (

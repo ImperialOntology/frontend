@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
+const API_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
 
 function AnalysisPage() {
   const params = useParams();
@@ -29,7 +30,7 @@ function AnalysisPage() {
   useEffect(() => {
     if (!dataSourceId) return;
 
-    fetch(`/main/categories/${dataSourceId}`, {
+    fetch(`${API_URL}/main/categories/${dataSourceId}`, {
       method: "GET",
       headers: {
         "X-API-Key": API_KEY,
@@ -47,7 +48,7 @@ function AnalysisPage() {
 
     setLoadingMethods(true);
 
-    fetch(`/main/argumentative_analysis/${selectedCategory.id}`, {
+    fetch(`${API_URL}/main/argumentative_analysis/${selectedCategory.id}`, {
       method: "GET",
       headers: {
         "X-API-Key": API_KEY,

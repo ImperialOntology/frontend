@@ -24,6 +24,7 @@ import dagre from "dagre";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
+const API_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
 
 function ReviewAggregation() {
   const location = useLocation();
@@ -47,7 +48,7 @@ function ReviewAggregation() {
   useEffect(() => {
     if (!categoryId) return;
 
-    fetch(`/main/categories/${categoryId}/top_products`, {
+    fetch(`${API_URL}/main/categories/${categoryId}/top_products`, {
       method: "GET",
       headers: {
         "X-API-Key": API_KEY,
@@ -66,7 +67,7 @@ function ReviewAggregation() {
 
     setLoading(true);
 
-    fetch(`/main/result_tree/${product.id}?argumentative_analysis_id=${argumentativeAnalysisId}&prune=${prune}`, {
+    fetch(`${API_URL}/main/result_tree/${product.id}?argumentative_analysis_id=${argumentativeAnalysisId}&prune=${prune}`, {
       method: "GET",
       headers: {
         "X-API-Key": API_KEY,
@@ -142,7 +143,6 @@ function ReviewAggregation() {
     const nodeWidth = 180;
     const nodeHeight = 50;
 
-    const isHorizontal = direction === 'LR';
     dagreGraph.setGraph({ rankdir: direction });
 
     nodes.forEach((node) => {
