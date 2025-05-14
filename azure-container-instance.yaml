@@ -1,0 +1,33 @@
+apiVersion: 2019-12-01
+location: uksouth
+name: adax-frontend
+properties:
+  containers:
+  - name: frontend
+    properties:
+      environmentVariables:
+        - name: 'REACT_APP_BACKEND_URL'
+          value: 'http://131.145.44.87:8000'
+        - name: 'REACT_APP_API_KEY'
+          value: 'YJUAKi9B9jLUDq+k1WTQJtuRM1iK69O8OEWdC8Kuihg='
+      image: ontologyapp-aweufshed9eucdgx.azurecr.io/frontend:latest
+      ports:
+      - port: 3000
+      resources:
+        requests:
+          cpu: 1.0
+          memoryInGB: 1.5
+  osType: Linux
+  restartPolicy: Always
+  ipAddress:
+    type: Public
+    ports:
+    - protocol: TCP
+      port: 80
+  imageRegistryCredentials:
+    - server: ontologyapp-aweufshed9eucdgx.azurecr.io
+      username: ontologyapp
+      password: 80Eurh/7vWE+LKcnRvAIHlqqYbr/V22XCerxhyM4BA+ACRD7Qc/t
+tags:
+  resourceGroup: ontology
+type: Microsoft.ContainerInstance/containerGroups 

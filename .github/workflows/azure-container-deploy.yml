@@ -1,0 +1,53 @@
+name: Deploy to Azure Container Instances
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  CONTAINER_REGISTRY: ontologyapp-aweufshed9eucdgx.azurecr.io
+  RESOURCE_GROUP: ontology
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Log in to ACR
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.CONTAINER_REGISTRY }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ env.CONTAINER_REGISTRY }}/frontend:latest
+          build-args: |
+            REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}
+            REACT_APP_API_KEY=${{ secrets.REACT_APP_API_KEY }}
+
+      - name: Set ACI Environment Variables in YAML
+        run: |
+          sed -i "s|REPLACE_WITH_YOUR_BACKEND_URL|${{ secrets.REACT_APP_BACKEND_URL }}|g" azure-container-instance.yaml
+          sed -i "s|REPLACE_WITH_YOUR_API_KEY|${{ secrets.REACT_APP_API_KEY }}|g" azure-container-instance.yaml
+
+      - name: Deploy to Azure Container Instances
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az container create --resource-group ${{ env.RESOURCE_GROUP }} --file azure-container-instance.yaml 
