@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import { AppBar, Toolbar, Typography, IconButton, Button, CssBaseline } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, CssBaseline } from "@mui/material";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import Home from "././pages/Home"
 import Exploration from "././pages/Exploration"

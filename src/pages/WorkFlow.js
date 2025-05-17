@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Container, Grid, Button , Typography, Box, CircularProgress} from "@mui/material";
-
+import React, { useState } from "react";
+import { Container, Button, Typography, Box } from "@mui/material";
 
 const WorkFlowPage = () => {
   const [activePopup, setActivePopup] = useState({ id: null, source: null });
@@ -52,7 +51,7 @@ const WorkFlowPage = () => {
     {
       id: 9,
       label: "4. Relation Extraction",
-      content: "Sentences containing exactly two aspects from different synset groups are selected. These sentences, along with their corresponding aspects, are provided to the LLM. The model’s task is to determine whether a part-whole relationship exists between the two aspects based on the surrounding context.."
+      content: "Sentences containing exactly two aspects from different synset groups are selected. These sentences, along with their corresponding aspects, are provided to the LLM. The model's task is to determine whether a part-whole relationship exists between the two aspects based on the surrounding context.."
     },
     {
       id:0,
