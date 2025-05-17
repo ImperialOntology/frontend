@@ -167,36 +167,47 @@ function ReviewAggregation() {
   }
 
   // create the tree flow 
-  const createReactFlowTree = (nodeName, nodeData, parent = null, depth = 0, nodes = [], edges = [], visited = new Set()) => {
+  const createReactFlowTree = (
+    nodeName,
+    nodeData,
+    parent = null,
+    depth = 0,
+    nodes = [],
+    edges = [],
+    visited = new Set(),
+    parentPolarity = null // <--- pass parent polarity
+  ) => {
     if (visited.has(nodeName)) return;
     visited.add(nodeName);
-
+  
     const argument = ontologyTree?.arguments?.find(arg => arg.aspect === nodeName);
     const strength = argument?.strength;
     const polarity = argument?.polarity;
     const label = `${polarity === false ? '❌' : '✅'}${strength ? ` ${strength.toFixed(4)}` : ''} ${nodeName}`;
-
+  
     const id = `${nodeName}_${depth}`;
     nodes.push({ id, data: { label }, position: { x: 0, y: 0 } });
-
+  
     if (parent) {
+      const edgeColor = parentPolarity === polarity ? 'green' : 'red';
       edges.push({
         id: `${parent}->${id}`,
         source: parent,
         target: id,
-        data: { color: polarity === false ? 'red' : 'green' },
-        type: 'floating-dash', 
+        data: { color: edgeColor },
+        type: 'floating-dash',
       });
     }
-
+  
     if (nodeData && typeof nodeData === 'object') {
       for (const [childName, childData] of Object.entries(nodeData)) {
-        createReactFlowTree(childName, childData, id, depth + 1, nodes, edges, visited);
+        createReactFlowTree(childName, childData, id, depth + 1, nodes, edges, visited, polarity); // <--- pass current polarity down
       }
     }
-
+  
     return getLayoutedElements(nodes, edges);
   };
+  
   function FloatingDashEdge({ id, sourceX, sourceY, targetX, targetY, data }) {
     const [edgePath] = getBezierPath({
       sourceX,
@@ -276,7 +287,7 @@ function ReviewAggregation() {
       </Box>
       
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-        Please select a product to investigate the generated ontology tree.
+        Please select a product to investigate the generated ontology tree. The prune tree button could remove aspect with 0 strength.
       </Typography>
 
       <Grid container spacing={4} sx={{ mb: 4 }}>
@@ -364,7 +375,7 @@ function ReviewAggregation() {
       </Box>
 
       <Grid container spacing={4}>
-        {/* Left: Ontology Tree */}
+        {/* Left: Ontology Tree 
         <Grid item xs={12} md={12}>
           <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
             Ontology Tree
@@ -394,16 +405,13 @@ function ReviewAggregation() {
               </Typography>
             )}
           </Box>
-        </Grid>
+        </Grid> */}
 
         <Grid item xs={12} md={12}>
           <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
             Ontology Tree
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-                The number shown at the front of each aspect is the argument strength.
-                The edge between aspect are the support & against relationship between asepcts. 
-          </Typography>
+          
           <Box sx={{ padding: 2 }}>
             {loading ? (
               <CircularProgress />
@@ -416,6 +424,12 @@ function ReviewAggregation() {
                 };
                 return (
                   <div style={{ width: '100%', height: '600px' }}>
+                    <Typography variant="body2" color="text.secondary">
+                    <div>The number shown at the front of each aspect is the argument strength. </div>
+                    <div>The tick means a positive aspect where a cross means negative aspect. </div>
+                    <div>The edge between aspect are the support & against relationship between asepcts. </div>
+                    </Typography>
+
                     <ReactFlow nodes={nodes} edges={edges} edgeTypes={edgeTypes} fitView>
                       <Background />
                       <Controls />
@@ -425,7 +439,7 @@ function ReviewAggregation() {
               })()
             ) : (
               <Typography variant="body2" color="text.secondary">
-                Please select a product to view its ontology tree.
+                Please select a product to view its ontology tree. 
               </Typography>
             )}
           </Box>

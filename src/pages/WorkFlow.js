@@ -92,7 +92,7 @@ const WorkFlowPage = () => {
     <Box sx={{ flexGrow: 1 }}>
       <Container sx={{ marginTop: 6 }}>
         <Typography variant="h3" gutterBottom sx={{ mb: 5 }}>
-          How does ADA-x work?
+          How does ADA-X work?
         </Typography>
         
         {/* Image container with limited size */}
@@ -121,7 +121,7 @@ const WorkFlowPage = () => {
         </Box>
 
         <Typography variant="h4" gutterBottom sx={{ mb: 5 }}>
-          1. Gather Customer reivews
+          1. Gather Customer reviews
         </Typography>
         <Typography variant="h5" align="left" sx={{ lineHeight: 1.6 }}>
         Similar to any review aggregation method, customer reviews are the most crucial component of the ADA-X system.
