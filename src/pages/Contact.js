@@ -71,9 +71,6 @@ const Contact = () => {
         <Typography variant="h3" component="h1" gutterBottom color="#050c43" fontWeight="bold">
           Our Team
         </Typography>
-        <Typography variant="h6" color="textSecondary" maxWidth="700px" mx="auto">
-          Meet the talented individuals behind ADA-X who are passionate about creating innovative solutions
-        </Typography>
         <Divider sx={{ mt: 4, width: '50%', mx: 'auto' }} />
       </Box>
 
