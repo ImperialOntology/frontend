@@ -246,28 +246,6 @@ function ReviewAggregation() {
     );
   }
   
-{/* 
-  const renderTree = (nodeName, nodeData) => {
-    const argument = ontologyTree?.arguments?.find(arg => arg.aspect === nodeName);
-    const strength = argument?.strength;
-    const originalPolarity = argument?.polarity;
-  
-    const polarityIcon = originalPolarity === false ? "❌" : "✅";
-    const strengthText = strength !== undefined ? ` ${strength.toFixed(4)}` : "";
-  
-    const label = `${polarityIcon}${strengthText} ${nodeName}`;
-  
-    return {
-      id: nodeName,
-      label,
-      children: nodeData && typeof nodeData === "object"
-        ? Object.entries(nodeData).map(([childName, childData]) =>
-            renderTree(childName, childData)
-          )
-        : [],
-    };
-  };  */}
-  
   return (
     <Container sx={{ marginTop: 6 }}>
       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 5 }}>
@@ -375,38 +353,6 @@ function ReviewAggregation() {
       </Box>
 
       <Grid container spacing={4}>
-        {/* Left: Ontology Tree 
-        <Grid item xs={12} md={12}>
-          <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-            Ontology Tree
-          </Typography>
-          <Box sx={{ padding: 2 }}>
-            {loading ? (
-              <CircularProgress />
-            ) : ontologyTree ? (
-              (() => {
-                const rootKey = Object.keys(ontologyTree.tree)[0];
-                return (
-                  <RichTreeView
-                    defaultExpandedItems={[rootKey]}
-                    slots={{
-                      expandIcon: PlusSquare,
-                      collapseIcon: MinusSquare,
-                      endIcon: CloseSquare,
-                      item: CustomTreeItem,
-                    }}
-                    items={[renderTree(rootKey, ontologyTree.tree[rootKey])]}
-                  />
-                );
-              })()
-            ) : (
-              <Typography variant="body2" color="text.secondary">
-                Please select a product to view its ontology tree.
-              </Typography>
-            )}
-          </Box>
-        </Grid> */}
-
         <Grid item xs={12} md={12}>
           <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
             Ontology Tree
