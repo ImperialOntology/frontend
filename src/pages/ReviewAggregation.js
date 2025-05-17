@@ -14,9 +14,9 @@ import {
   IconButton, 
   Tooltip
 } from "@mui/material";
-import { RichTreeView } from "@mui/x-tree-view/RichTreeView";
-import CustomTreeItem from "../components/CustomTreeItem";
-import { MinusSquare, PlusSquare, CloseSquare } from "../components/Icons";
+//import { RichTreeView } from "@mui/x-tree-view/RichTreeView";
+//import CustomTreeItem from "../components/CustomTreeItem";
+//import { MinusSquare, PlusSquare, CloseSquare } from "../components/Icons";
 import ReactFlow, { Background, Controls } from 'reactflow';
 import { BaseEdge, getBezierPath } from 'reactflow';
 import 'reactflow/dist/style.css';
@@ -246,7 +246,7 @@ function ReviewAggregation() {
     );
   }
   
-
+{/* 
   const renderTree = (nodeName, nodeData) => {
     const argument = ontologyTree?.arguments?.find(arg => arg.aspect === nodeName);
     const strength = argument?.strength;
@@ -266,7 +266,7 @@ function ReviewAggregation() {
           )
         : [],
     };
-  };  
+  };  */}
   
   return (
     <Container sx={{ marginTop: 6 }}>
