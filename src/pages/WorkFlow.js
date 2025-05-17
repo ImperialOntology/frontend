@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Grid, Button , Typography, Box, CircularProgress} from "@mui/material";
-import AnimatedDemo from '../components/Animation';
-import MyComponent from "../components/WorkflowAnimation";
+
 
 const WorkFlowPage = () => {
   const [activePopup, setActivePopup] = useState({ id: null, source: null });
