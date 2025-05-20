@@ -69,7 +69,6 @@ function Exploration() {
           Choose a dataset from the following options. 
           <br /><br />
           The first component is the review source, followed by the number of review for each category. 
-          Test key {KEY}
         </Typography>
       </Box>
 
