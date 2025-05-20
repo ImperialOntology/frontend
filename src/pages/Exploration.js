@@ -5,6 +5,7 @@ import CardItem from "../components/CardItem";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 const API_URL = process.env.REACT_APP_BACKEND_URL || "http://131.145.94.64:8000";
+const KEY = process.env.REACT_APP_TEST_KEY;
 
 function Exploration() {
   const [dataSources, setDataSources] = useState([]);
@@ -68,6 +69,7 @@ function Exploration() {
           Choose a dataset from the following options. 
           <br /><br />
           The first component is the review source, followed by the number of review for each category. 
+          Test key {KEY}
         </Typography>
       </Box>
 
