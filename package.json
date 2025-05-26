@@ -2,7 +2,7 @@
   "name": "llm-ra-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://131.145.94.64:8000",
+  "proxy": "http://4.250.83.52:8000",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
