@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import CardItem from "../components/CardItem";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
-const API_URL = process.env.REACT_APP_BACKEND_URL || "http://4.250.83.52:8000";
+const API_URL = process.env.REACT_APP_BACKEND_URL || "https://backend-ontology.redbeach-21aedb1a.uksouth.azurecontainerapps.io";
 
 function Exploration() {
   const [dataSources, setDataSources] = useState([]);
