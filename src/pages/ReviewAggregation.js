@@ -24,7 +24,7 @@ import dagre from "dagre";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
-const API_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
+const API_URL = process.env.REACT_APP_BACKEND_URL || "https://backend-ontology.redbeach-21aedb1a.uksouth.azurecontainerapps.io";
 
 function ReviewAggregation() {
   const location = useLocation();
