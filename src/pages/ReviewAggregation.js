@@ -265,7 +265,7 @@ function ReviewAggregation() {
       </Box>
       
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-        Please select a product to investigate the generated ontology tree. The prune tree button could remove aspect with 0 strength.
+        Please select a product to investigate the generated ontology tree. The prune tree button removes aspects with 0 strength.
       </Typography>
 
       <Grid container spacing={4} sx={{ mb: 4 }}>

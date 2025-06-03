@@ -10,6 +10,7 @@ import ReviewAggregation from "./pages/ReviewAggregation";
 import Contact from "./pages/Contact";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
+import ContactSection from "./components/ContactSection";
 
 
 function NavigationBar() {
@@ -84,18 +85,7 @@ function NavigationBar() {
             Exploration
           </Button>
 
-          <Button 
-            color="inherit" 
-            onClick={() => navigate("/contact")}
-            sx={{ 
-              color: '#ff3b00', 
-              fontWeight: '500',
-              textTransform: 'none',
-              fontSize: '16px'
-            }}
-          >
-            Contact
-          </Button>
+
         </div>
 
       </Toolbar>
@@ -118,8 +108,8 @@ function App() {
               <Route path="/analysis/:dataSourceId" element={<AnalysisPage />} />
               <Route path="/exploration" element={<Exploration />} />
               <Route path="/review-aggregation" element={<ReviewAggregation />} />
-              <Route path="/contact" element={<Contact />} />
             </Routes>
+            <ContactSection />
           </div>
         </Router>
       </div>

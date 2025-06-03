@@ -7,7 +7,7 @@ const WorkFlowPage = () => {
   const Bert_buttons = [
     {
       id: 1,
-      label: "1. Entites Extraction",
+      label: "1. Entity extraction",
       content: "In the entity extraction phase, all words are tokenized, frequently co-occurring tokens are merged into single candidate terms. A part-of-speech tagger is then used to identify the most frequently occurring entities among these candidates."
     },
     {

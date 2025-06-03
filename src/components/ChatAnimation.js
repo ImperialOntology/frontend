@@ -7,11 +7,11 @@ const messages = [
   { sender: 'user', text: 'Why was ADA-X highly rated?' },
 // due to some bugs on motion, this sentence wil not display
   {sender:"user", text:"Nothing"},
-  { sender: 'bot', text: 'Because ADA-X could able to aggregate customer reviews and provide explainable interaction with user' },
-  { sender: 'user', text: 'Could you explain more about this properties' },
-  { sender: 'bot', text: 'Sure, ADA-X utilized automatic ontolgy extraction methods, providing reliable respond to cusotmer query' },
-  { sender: 'user', text: 'What did the user say about ADA-X' },
-  { sender: 'bot', text: '"Using ADA-X is a game-chaning experience, It helped user to better understand my product features!"' },
+  { sender: 'bot', text: 'Because ADA-X is able to aggregate customer reviews and provide explainable interaction with users' },
+  { sender: 'user', text: 'Could you explain more?' },
+  { sender: 'bot', text: 'Sure, ADA-X utilized automatic ontology extraction methods, providing reliable responses to customer queries' },
+  { sender: 'user', text: 'What did users say about ADA-X?' },
+  { sender: 'bot', text: '"Using ADA-X is a game-changing experience, It helped me to better understand my product features!"' },
 ];
 
 const ChatMessage = ({ sender, text }) => {
