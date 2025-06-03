@@ -371,9 +371,9 @@ function ReviewAggregation() {
                 return (
                   <div style={{ width: '100%', height: '600px' }}>
                     <Typography variant="body2" color="text.secondary">
-                    <div>The number shown at the front of each aspect is the argument strength. </div>
-                    <div>The tick means a positive aspect where a cross means negative aspect. </div>
-                    <div>The edge between aspect are the support & against relationship between asepcts. </div>
+                    <div>The number shown at the front of each aspect is the argumentative strength. </div>
+                    <div>A tick means a positive aspect where a cross means negative aspect. </div>
+                    <div>The edges between aspect are the support and attack relations between aspects. </div>
                     </Typography>
 
                     <ReactFlow nodes={nodes} edges={edges} edgeTypes={edgeTypes} fitView>
