@@ -35,7 +35,7 @@ function NavigationBar() {
             }}
             onClick={() => navigate("/")}
           >
-          ADA
+          ADA-X
         </Typography>
 
         <div style={{ 

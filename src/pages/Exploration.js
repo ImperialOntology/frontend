@@ -60,10 +60,10 @@ function Exploration() {
     <Container sx={{ marginTop: 6, maxWidth: '100%' }}>
       <Box textAlign="center" mb={4}>
         <Typography variant="h3" gutterBottom sx={{ mb: 5 }}>
-          Discover ADA
+          Discover ADA-X
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-          Explore how ADA transforms raw customer reviews into clear, structured insights. 
+          Explore how ADA-X transforms raw customer reviews into clear, structured insights. 
           <br /><br />
           Choose a dataset from the following options. 
           <br /><br />

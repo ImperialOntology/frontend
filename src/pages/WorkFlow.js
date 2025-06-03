@@ -90,7 +90,7 @@ const WorkFlowPage = () => {
     <Box sx={{ flexGrow: 1 }}>
       <Container sx={{ marginTop: 6 }}>
         <Typography variant="h3" gutterBottom sx={{ mb: 5 }}>
-          How does ADA work?
+          How does ADA-X work?
         </Typography>
         
         {/* Image container with limited size */}
@@ -106,7 +106,7 @@ const WorkFlowPage = () => {
         >
             <img 
               src={require("../components/Images/Framework.png")}
-              alt="ADA Workflow Diagram" 
+              alt="ADA-X Workflow Diagram" 
               style={{ 
                 width: '100%',
                 height: '100%',
@@ -114,7 +114,7 @@ const WorkFlowPage = () => {
               }}
             />
           <Typography variant="caption" color="text.secondary" sx={{ fontStyle: 'italic' }}>
-            ADA workflow visualization
+            ADA-X workflow visualization
           </Typography>
         </Box>
 
@@ -122,8 +122,8 @@ const WorkFlowPage = () => {
           1. Gather Customer reviews
         </Typography>
         <Typography variant="h5" align="left" sx={{ lineHeight: 1.6 }}>
-        Similar to any review aggregation method, customer reviews are the most crucial component of the ADA system.
-        Having a large number of customer reviews helps the language model used in ADA better understand different 
+        Similar to any review aggregation method, customer reviews are the most crucial component of the ADA-X system.
+        Having a large number of customer reviews helps the language model used in ADA-X better understand different 
         aspects of a product, generate a high-quality ontology, and provide structured explanations of customer reviews.
 
         <br /><br />
@@ -221,7 +221,7 @@ const WorkFlowPage = () => {
         a particular domain of knowledge. The purpose of constructing an ontology is to break down the product 
         into different aspects and analyze each aspect in a later stage. This process is often time-consuming and 
         requires professional, domain-specific knowledge. Therefore, we embedded two automatic ontology extraction 
-        methods in the ADA system.
+        methods in the ADA-X system.
 
         <br /><br />
         The first method is a BERT-based ontology extraction technique. This method requires two manually annotated 
@@ -412,7 +412,7 @@ const WorkFlowPage = () => {
       </Typography>
 
       <Typography variant="h5" align="left" sx={{ lineHeight: 1.6 }}>
-      Based on the results obtained from the ontology extraction stage, the ADA framework then utilizes 
+      Based on the results obtained from the ontology extraction stage, the ADA-X system then utilizes 
       the ontology tree and customer reviews to generate dialectical strength and dialogical explanations. 
       This process is divided into two stages: mining votes using Sentiment Analysis (SA), and formulating 
       the Quantitative Bipolar Argumentation Framework (QBAF).
