@@ -7,7 +7,6 @@ import Exploration from "././pages/Exploration"
 import WorkFlowPage from "./pages/WorkFlow";
 import AnalysisPage from "./pages/Analysis";
 import ReviewAggregation from "./pages/ReviewAggregation";
-import Contact from "./pages/Contact";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import ContactSection from "./components/ContactSection";
